@@ -1,0 +1,18 @@
+{
+  "name": "pipedrive-test",
+  "version": "1.0.0",
+  "description": "pipedrive sample task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Mark B",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.44.0",
+    "express": "^4.18.2"
+  }
+}
