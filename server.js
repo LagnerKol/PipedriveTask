@@ -76,20 +76,16 @@ app.get("/deals", async (req, res) => {
   } catch (error) {
     if (error.response) {
       console.log("Error creating a deal, error data: ", error.response.data);
-      res
-        .status(error.response.status)
-        .json({
-          error: error.code,
-          info: error.response.data.error,
-          status: error.response.data.success,
-        });
+      res.status(error.response.status).json({
+        error: error.code,
+        info: error.response.data.error,
+        status: error.response.data.success,
+      });
     } else {
-      res
-        .status(500)
-        .json({
-          error: "Error occurred when requesting Pipedrive API",
-          message: error.message,
-        });
+      res.status(500).json({
+        error: "Error occurred when requesting Pipedrive API",
+        message: error.message,
+      });
     }
   }
 });
@@ -116,20 +112,16 @@ app.post("/deals", async (req, res) => {
   } catch (error) {
     if (error.response) {
       console.log("Error creating a deal, error data: ", error.response.data);
-      res
-        .status(error.response.status)
-        .json({
-          error: error.code,
-          info: error.response.data.error,
-          status: error.response.data.success,
-        });
+      res.status(error.response.status).json({
+        error: error.code,
+        info: error.response.data.error,
+        status: error.response.data.success,
+      });
     } else {
-      res
-        .status(500)
-        .json({
-          error: "Error occurred when requesting Pipedrive API",
-          message: error.message,
-        });
+      res.status(500).json({
+        error: "Error occurred when requesting Pipedrive API",
+        message: error.message,
+      });
     }
   }
 });
@@ -140,7 +132,7 @@ app.put("/deals", async (req, res) => {
   try {
     var id = req.body.id;
     if (!id) {
-      res.status(400).json("No deal id provided in body.");
+      return res.status(400).json("No deal id provided in body.");
     }
     const response = await axios.put(url + "/" + id, req.body, {
       params: {
@@ -149,6 +141,7 @@ app.put("/deals", async (req, res) => {
     });
 
     console.log("Deal Updated, id of deal: ", id);
+
     // duration of the request
     const duration = getDurationInMilliseconds(start);
     res.json(response.data);
@@ -160,20 +153,16 @@ app.put("/deals", async (req, res) => {
   } catch (error) {
     if (error.response) {
       console.log("Error updating a deal, error info: ", error.response.data);
-      res
-        .status(error.response.status)
-        .json({
-          error: error.code,
-          info: error.response.data.error,
-          status: error.response.data.success,
-        });
+      res.status(error.response.status).json({
+        error: error.code,
+        info: error.response.data.error,
+        status: error.response.data.success,
+      });
     } else {
-      res
-        .status(500)
-        .json({
-          error: "Error occurred when requesting Pipedrive API",
-          message: error.message,
-        });
+      res.status(500).json({
+        error: "Error occurred when requesting Pipedrive API",
+        message: error.message,
+      });
     }
   }
 });
@@ -183,6 +172,8 @@ app.get("/metrics", (req, res) => {
   res.json(metrics);
 });
 
-app.listen(port, () => {
+var server = app.listen(port, () => {
   console.log("Local API is running on port " + port);
 });
+
+module.exports = { app, server, metrics };
