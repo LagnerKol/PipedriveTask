@@ -23,7 +23,7 @@ var metrics = {
   PUT: [],
 };
 
-// middleware for metrics
+// middleware for metrics, we need to get the request duration
 app.use((req, res, next) => {
   const start = process.hrtime();
   res.on("finish", () => {
@@ -46,6 +46,7 @@ app.use((req, res, next) => {
 
 // GET DEALS
 app.get("/deals", async (req, res) => {
+  // get deals accepts query params, if any present we will use them in our request
   const queryParams = req.query;
   console.log("Query params: ", queryParams);
   const start = process.hrtime();
