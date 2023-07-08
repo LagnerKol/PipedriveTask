@@ -131,7 +131,7 @@ app.post("/deals", async (req, res) => {
 app.put("/deals", async (req, res) => {
   const start = process.hrtime();
   try {
-    var id = req.body.id;
+    var id = req.query.id;
     if (!id) {
       return res.status(400).json("No deal id provided in body.");
     }

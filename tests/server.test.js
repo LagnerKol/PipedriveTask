@@ -42,7 +42,7 @@ describe("GET /deals", () => {
 
 // POST endpoint tests
 describe("POST /deals", () => {
-  /*   it("should create a new deal successfully", async () => {
+    it("should create a new deal successfully", async () => {
     const testData = {
         title: "Testdeal2",
         value: 100,
@@ -52,7 +52,7 @@ describe("POST /deals", () => {
     const response = await request(app).post("/deals").send(testData);
     expect(response.status).toBe(200);
     expect(response.body.data).toHaveProperty("id");
-  }); */
+  }); 
 
   it("should return an error for an invalid payload", async () => {
     const errorData = {
@@ -82,16 +82,15 @@ describe("POST /deals", () => {
 // POST endpoint tests
 describe("PUT /deals", () => {
   const testData = {
-    id: 2,
     title: "Second deal title new",
   };
-
+  var idToUpdate = 2
   // update test
   it("should pdate a deal successfully", async () => {
-    const response = await request(app).put("/deals").send(testData);
+    const response = await request(app).put("/deals").query({ id: idToUpdate }).send(testData);
     expect(response.status).toBe(200);
     expect(response.body.data).toHaveProperty("id");
-    expect(response.body.data.id).toBe(testData.id);
+    expect(response.body.data.id).toBe(idToUpdate);
     expect(response.body.data.title).toBe(testData.title);
   });
 
@@ -115,7 +114,7 @@ describe("PUT /deals", () => {
       .spyOn(axios, "put")
       .mockRejectedValue(new Error("Error updating the deal"));
 
-    const response = await request(app).put("/deals").send(testData);
+    const response = await request(app).put("/deals").query({id: idToUpdate}).send(testData);
 
     expect(response.status).toBe(500);
     expect(response.body).toEqual({
